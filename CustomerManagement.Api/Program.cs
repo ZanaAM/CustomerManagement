@@ -19,6 +19,10 @@ builder.Services.AddCors(options => {
 builder.Host.UseSerilog((context, loggerConfig) => 
                           loggerConfig.WriteTo.Console()
                              .ReadFrom.Configuration(context.Configuration));
+var connectionString = builder.Configuration.GetConnectionString("CustomerManagementDbConnectionString");
+//builder.Services.AddDbContext<CustomerManagementDbContext>(options => {
+//    options.UseSqlServer(connectionString);
+//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
