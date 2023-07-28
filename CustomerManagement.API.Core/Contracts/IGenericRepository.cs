@@ -19,6 +19,5 @@ namespace CustomerManagement.API.Core.Contracts
         Task DeleteAsync(int id);
         Task UpdateAsync(T entity);
         Task UpdateAsync<TSource>(int id, TSource source) where TSource : IBaseDto;
-        Task<bool> Exists(int id);
     }
 }

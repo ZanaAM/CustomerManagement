@@ -18,9 +18,10 @@ namespace CustomerManagement.API.Core.Configurations
             CreateMap<Customer, GetCustomerDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Customer, UpdateCustomerDto>().ReverseMap();
-
+            CreateMap<CustomerDto, GetCustomerDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Address, CreateAddressDto>().ReverseMap();
+            CreateMap<Address, UpdateAddressDto>().ReverseMap();
         }
     }
 }

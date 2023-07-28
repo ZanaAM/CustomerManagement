@@ -19,29 +19,21 @@ namespace CustomerManagement.API.Data
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresses { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            //modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            //modelBuilder.ApplyConfiguration(new CountryConfiguration());
-            //modelBuilder.ApplyConfiguration(new HotelConfiguration());
-        }
     }
 
-    public class CustomerManagementDbContextFactory : IDesignTimeDbContextFactory<CustomerManagementDbContext>
-    {
-        public CustomerManagementDbContext CreateDbContext(string[] args)
-        {
-            IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
+    //public class CustomerManagementDbContextFactory : IDesignTimeDbContextFactory<CustomerManagementDbContext>
+    //{
+    //    public CustomerManagementDbContext CreateDbContext(string[] args)
+    //    {
+    //        IConfiguration config = new ConfigurationBuilder()
+    //            .SetBasePath(Directory.GetCurrentDirectory())
+    //            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    //            .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<CustomerManagementDbContext>();
-            var conn = config.GetConnectionString("CustomerManagementDbConnectionString");
-            optionsBuilder.UseSqlServer(conn);
-            return new CustomerManagementDbContext(optionsBuilder.Options);
-        }
-    }
+    //        var optionsBuilder = new DbContextOptionsBuilder<CustomerManagementDbContext>();
+    //        var connectionString = config.GetConnectionString("CustomerManagementDbConnectionString");
+    //        optionsBuilder.UseSqlServer(connectionString);
+    //        return new CustomerManagementDbContext(optionsBuilder.Options);
+    //    }
+    //}
 }

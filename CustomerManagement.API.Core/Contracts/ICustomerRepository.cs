@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace CustomerManagement.API.Core.Contracts
 {
-    public interface ICustomersRepository: IGenericRepository<Customer>
+    public interface ICustomerRepository: IGenericRepository<Customer>
     {
         Task<CustomerDto> GetDetails(int id);
+        Task<bool> ExistsByEmailAddress(string emailAddress);
+        Task<List<Customer>> GetAllActive();
     }
 }

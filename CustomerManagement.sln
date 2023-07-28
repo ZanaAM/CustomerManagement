@@ -5,9 +5,13 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagement.API", "CustomerManagement.Api\CustomerManagement.API.csproj", "{1D501CB6-BADC-4BCF-A63C-8901E75202FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.API.Data", "CustomerManagement.Data\CustomerManagement.API.Data.csproj", "{6E076574-85DA-4D9C-973A-FA48BAB0779A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagement.API.Data", "CustomerManagement.Data\CustomerManagement.API.Data.csproj", "{6E076574-85DA-4D9C-973A-FA48BAB0779A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.API.Core", "CustomerManagement.API.Core\CustomerManagement.API.Core.csproj", "{CFB1715F-28D1-4ECB-A42C-EA48CA22B29A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerManagement.API.Core", "CustomerManagement.API.Core\CustomerManagement.API.Core.csproj", "{CFB1715F-28D1-4ECB-A42C-EA48CA22B29A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.API.BusinessLogic", "CustomerManagement.API.BusinessLogic\CustomerManagement.API.BusinessLogic.csproj", "{58A5D711-0D2E-40B2-8926-6283166455E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerManagement.API.Tests", "CustomerManagement.API.Tests\CustomerManagement.API.Tests.csproj", "{F7C411E7-1637-4AF9-A818-B3005526C811}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{CFB1715F-28D1-4ECB-A42C-EA48CA22B29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFB1715F-28D1-4ECB-A42C-EA48CA22B29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFB1715F-28D1-4ECB-A42C-EA48CA22B29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A5D711-0D2E-40B2-8926-6283166455E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A5D711-0D2E-40B2-8926-6283166455E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A5D711-0D2E-40B2-8926-6283166455E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A5D711-0D2E-40B2-8926-6283166455E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7C411E7-1637-4AF9-A818-B3005526C811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7C411E7-1637-4AF9-A818-B3005526C811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7C411E7-1637-4AF9-A818-B3005526C811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7C411E7-1637-4AF9-A818-B3005526C811}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

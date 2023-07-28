@@ -17,9 +17,7 @@ namespace CustomerManagement.API.Core.Models.Address
        public string? County { get; set; }
        [Required]
        public string PostCode { get; set; }
-       public string Country { get; set; }
-       [Range(1, int.MaxValue)]
-       public int CustomerId { get; set; }
+       public string? Country { get; set; } = "UK";
        [Required]
        public bool IsPrimary { get; set; }
 

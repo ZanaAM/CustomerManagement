@@ -15,7 +15,7 @@ namespace CustomerManagement.API.Data
         public string Town { get; set; }
         public string? County { get; set; }
         public string PostCode { get; set; }
-        public string Country { get; set; }
+        public string? Country { get; set; }
         [ForeignKey(nameof(CustomerId))]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
