@@ -54,7 +54,9 @@ namespace CustomerManagement.API.BusinessLogic.Services
                 {
                     throw new BadRequestException(ErrorMessages.MandatoryAddressMissing);
                 }
-                if (!createCustomerDto.Addresses.Any(a => a.IsPrimary))
+                var multiplePrimaryAddresses = createCustomerDto.Addresses.Select(a => a.IsPrimary).ToList();
+                var noPrimaryAddress = !createCustomerDto.Addresses.Any(a => a.IsPrimary);
+                if (noPrimaryAddress || (multiplePrimaryAddresses != null && multiplePrimaryAddresses.Count() > 1))
                 {
                     throw new BadRequestException(ErrorMessages.PrimaryAddressMandatory);
                 }
@@ -108,6 +110,7 @@ namespace CustomerManagement.API.BusinessLogic.Services
             {
                 var errorMessage = $"Failed to delete customer with id {id} due to the error: {exception.Message}";
                 _logger.LogError(errorMessage);
+                return errorMessage;
             }
             return ResponseMessage.Failure.ToString();
         }

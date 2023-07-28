@@ -23,10 +23,9 @@ namespace CustomerManagement.API.Tests
             };
 
         }
-        public static List<AddressDto> CreateMockPrimaryAddressList(Boolean isPrimary)
+        public static AddressDto CreateMockAddress(Boolean isPrimary)
         {
-            List<AddressDto> addressDtos = new List<AddressDto>();
-            addressDtos.Add(new AddressDto
+            return new AddressDto
             {
                 AddressLineOne = "OneAddress",
                 County = "Test",
@@ -34,7 +33,24 @@ namespace CustomerManagement.API.Tests
                 Town = "TestTown",
                 IsPrimary = isPrimary
 
-            });
+            };
+        }
+        public static CreateAddressDto CreateMockCreateAddressRequest(Boolean isPrimary)
+        {
+            return new CreateAddressDto
+            {
+                AddressLineOne = "OneAddress",
+                County = "Test",
+                PostCode = "12344",
+                Town = "TestTown",
+                IsPrimary = isPrimary
+
+            };
+        }
+        public static List<AddressDto> CreateMockPrimaryAddressList(Boolean isPrimary)
+        {
+            List<AddressDto> addressDtos = new List<AddressDto>();
+            addressDtos.Add(MockObjects.CreateMockAddress(true));
             return addressDtos;
         }
     }

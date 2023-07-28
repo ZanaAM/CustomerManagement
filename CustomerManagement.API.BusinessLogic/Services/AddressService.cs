@@ -51,10 +51,7 @@ namespace CustomerManagement.API.BusinessLogic.Services
                 if (createAddressDto.IsPrimary)
                 {
                     var primaryAddress = await _addressRepository.GetPrimaryAddressByCustomerId(createAddressDto.CustomerId);
-                    if(primaryAddress != null)
-                    {
-                        throw new InvalidOperationException(ErrorMessages.PrimaryAddressExists);
-                    }
+                    await FindAndUpdateExistingPrimaryAddress(primaryAddress.CustomerId, false);
                 }
                 var newAddress = _mapper.Map<Address>(createAddressDto);
                 await _addressRepository.AddAsync(newAddress);

@@ -4,9 +4,11 @@ using CustomerManagement.API.Core.Models;
 using CustomerManagement.API.Core.Models.Customer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CustomerManagement.API.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
@@ -22,6 +24,7 @@ namespace CustomerManagement.API.Controllers
 
         // GET: api/Customer/GetAll
         [HttpGet("GetAll")]
+        [SwaggerResponse(200, "All customers are successfully retrieved.", typeof(IEnumerable<GetCustomerDto>))]
         public async Task<ActionResult<IEnumerable<GetCustomerDto>>> GetCustomers()
         {
             _logger.LogInformation("GetCustomers");
@@ -31,6 +34,7 @@ namespace CustomerManagement.API.Controllers
         }
         // GET: api/Customer/Active
         [HttpGet("GetAllActive")]
+        [SwaggerResponse(200, "All active customers are successfully retrieved.", typeof(IEnumerable<GetCustomerDto>))]
         public async Task<ActionResult<IEnumerable<GetCustomerDto>>> GetActiveCustomers()
         {
             _logger.LogInformation("GetActiveCustomers");
@@ -40,6 +44,7 @@ namespace CustomerManagement.API.Controllers
         }
         // GET: api/Customer/?StartIndex=0&pagesize=25&PageNumber=1
         [HttpGet]
+        [SwaggerResponse(200, "All customers are successfully retrieved.")]
         public async Task<ActionResult<PaginatedResult<GetCustomerDto>>> GetPagedCustomers([FromQuery] QueryParameters queryParameters)
         {
             _logger.LogInformation("GetPagedCountries");
@@ -49,17 +54,27 @@ namespace CustomerManagement.API.Controllers
         }
 
         // GET: api/Customer/5
+        [ProducesResponseType(typeof(IEnumerable<CustomerDto>), 200)]
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get customer by Id")]
+        [SwaggerResponse(200, "The customer was successfully retrieved.", typeof(IEnumerable<GetCustomerDto>))]
+        [SwaggerResponse(404, "The customer could not be found.")]
         public async Task<ActionResult<CustomerDto>> GetCustomer(int id)
         {
             _logger.LogInformation("GetCustomer");
             var customer = await _customerService.GetCustomerAsync(id);
             _logger.LogInformation("Fetched Customer");
-            return Ok(customer);
+            return customer != null? Ok(customer): new ObjectResult(new { message = ErrorMessages.CustomerDoesNotExist })
+            {
+                StatusCode = StatusCodes.Status404NotFound,
+            };
         }
 
         // PUT: api/Customer/5
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Update customer status by Id")]
+        [SwaggerResponse(200, "The customer status was successfully updated.", typeof(IEnumerable<GetCustomerDto>))]
+        [SwaggerResponse(400, "The customer could not be updated.")]
         public async Task<IActionResult> PutCustomer(int id, UpdateCustomerDto updateCountryDto)
         {
             _logger.LogInformation("PutCustomer");
@@ -67,32 +82,41 @@ namespace CustomerManagement.API.Controllers
             _logger.LogInformation("Completed Customer update");
             return updatedMessage.Equals(ResponseMessage.Success.ToString()) ? Ok(updatedMessage) : new ObjectResult(new { message = updatedMessage })
             {
-                StatusCode = StatusCodes.Status500InternalServerError,
+                StatusCode = StatusCodes.Status400BadRequest,
             };
         }
 
         // POST: api/Customer
         [HttpPost]
+        [SwaggerOperation(Summary = "Update customer status by Id")]
+        [SwaggerResponse(201, "The customer status was successfully updated.", typeof(IEnumerable<GetCustomerDto>))]
+        [SwaggerResponse(400, "The customer could not be created.")]
         public async Task<ActionResult<CustomerDto>> PostCustomer([FromBody]CreateCustomerDto createCustomerDto)
         {
             _logger.LogInformation("PostCustomer");
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var customer = await _customerService.CreateCustomerAsync(createCustomerDto);
             _logger.LogInformation("Completed Customer creation");
-            return customer == null? StatusCode(500) : CreatedAtAction(nameof(PostCustomer), new { id = customer.Id}, customer);
+            return customer == null? new ObjectResult(new { message = ErrorMessages.CustomerNotCreated })
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+            } 
+            : CreatedAtAction(nameof(PostCustomer), new { id = customer.Id}, customer);
         }
 
         // DELETE: api/Customer/5
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Delete customer by Id")]
+        [SwaggerResponse(200, "The customer was successfully deleted.", typeof(IEnumerable<GetCustomerDto>))]
+        [SwaggerResponse(400, "The customer could not be deleted.")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
             _logger.LogInformation("DeleteCustomer");
-            await _customerService.DeleteCustomerAsync(id);
+            var deletedMessage = await _customerService.DeleteCustomerAsync(id);
             _logger.LogInformation("Completed Customer deletion");
-            return NoContent();
+            return deletedMessage.Equals(ResponseMessage.Success.ToString())? Ok(deletedMessage): new ObjectResult(new { message = deletedMessage})
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+            };
         }
     }
 }

@@ -33,5 +33,7 @@ namespace CustomerManagement.API.BusinessLogic.Constants
         public const string InvalidEmailAddress = "Invalid email address";
         public const string MaxLengthMobileNumber = "MaximumLength must be 15 characters for mobile address";
         public const string MandatoryMobileNumber = "Please specify a mobile number";
+        public const string CustomerNotCreated = "Customer could not be created";
+        public const string AddressNotCreated = "Address could not be craeted";
     }
 }
