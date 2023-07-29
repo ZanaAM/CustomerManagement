@@ -40,14 +40,14 @@ namespace CustomerManagement.API.Controllers
         public async Task<ActionResult<AddressDto>> GetAddress(int id)
         {
             var address = await _addressService.GetAddressAsync(id);
-            return address != null? Ok(address): new ObjectResult(new { message = ErrorMessages.CustomerDoesNotExist })
+            return address != null? Ok(address): new ObjectResult(new { message = ErrorMessages.AddressNotExist })
             {
                 StatusCode = StatusCodes.Status404NotFound,
             };
         }
 
         // PUT: api/Address/5
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         [SwaggerOperation(Summary = "Update primary status of address by Id")]
         [SwaggerResponse(200, "The primary status if address was successfully updated.")]
         [SwaggerResponse(400, "The address could not be updated.")]

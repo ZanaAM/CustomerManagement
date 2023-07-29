@@ -35,5 +35,6 @@ namespace CustomerManagement.API.BusinessLogic.Constants
         public const string MandatoryMobileNumber = "Please specify a mobile number";
         public const string CustomerNotCreated = "Customer could not be created";
         public const string AddressNotCreated = "Address could not be craeted";
+        public const string AddressNotExist = "Address does not exist for the given id";
     }
 }

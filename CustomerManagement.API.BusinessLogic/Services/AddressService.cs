@@ -29,14 +29,23 @@ namespace CustomerManagement.API.BusinessLogic.Services
         }
         public async Task<AddressDto> GetAddressAsync(int id)
         {
-            var address = await _addressRepository.GetAsync(id);
-
-            if (address == null)
+            try
             {
-                throw new NotFoundException(nameof(GetAddressAsync), id);
-            }
+                var address = await _addressRepository.GetAsync(id);
 
-            return _mapper.Map<AddressDto>(address);
+                if (address == null)
+                {
+                    throw new NotFoundException(nameof(GetAddressAsync), id);
+                }
+
+                return _mapper.Map<AddressDto>(address);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Failed to find address for  Id {id} due to the error: {ex.Message}");
+            }
+            return null;
+            
         }
         
         public async Task<AddressDto?> CreateAddressAsync(CreateAddressDto createAddressDto)

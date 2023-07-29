@@ -31,14 +31,22 @@ namespace CustomerManagement.API.BusinessLogic.Services
         }
         public async Task<GetCustomerDto> GetCustomerAsync(int id)
         {
-            var customer = await _customersRepository.GetDetails(id);
-
-            if (customer == null)
+            try
             {
-                throw new NotFoundException(nameof(GetCustomerAsync), id);
+                var customer = await _customersRepository.GetDetails(id);
+
+                if (customer == null)
+                {
+                    throw new NotFoundException(nameof(GetCustomerAsync), id);
+                }
+                return _mapper.Map<GetCustomerDto>(customer);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Failed to find customer with Id {id} due to the error: {ex.Message}");
             }
 
-            return _mapper.Map<GetCustomerDto>(customer);
+            return null;
         }
         public async Task<CustomerDto?> CreateCustomerAsync(CreateCustomerDto createCustomerDto)
         { 

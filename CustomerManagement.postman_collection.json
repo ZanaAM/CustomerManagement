@@ -1,12 +1,100 @@
 {
 	"info": {
-		"_postman_id": "c23386a9-722e-444b-b666-ad2e9fc2f308",
+		"_postman_id": "015460c0-5f41-41dd-9dee-62f2d5e72a12",
 		"name": "CustomerManagement",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12116121",
-		"_collection_link": "https://orange-equinox-469412.postman.co/workspace/farzana/collection/12116121-c23386a9-722e-444b-b666-ad2e9fc2f308?action=share&creator=12116121&source=collection_link"
+		"_exporter_id": "28822911"
 	},
 	"item": [
+		{
+			"name": "Customer.Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Returns a new customer\", function() {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.id).to.greaterThan(0)\r",
+							"    pm.expect(responseJson.addresses[0],isPrimary).to.true();\r",
+							"    pm.expect(responseJson.addresses[0],Country).to.eq(\"UK\");\r",
+							"    pm.globals.set(\"customerId\",responseJson.id);\r",
+							"    pm.globals.set(\"addressId\",responseJson.addresses[0].id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"New Customer\",\r\n  \"forename\": \"Customer Forename\",\r\n  \"surname\": \"Customer Surname\",\r\n  \"emailAddress\": \"newcustomer@gmailcom\",\r\n  \"mobileNumber\": \"999990909\",\r\n  \"isActive\": true,\r\n  \"addresses\": [\r\n    {\r\n      \"addressLineOne\": \"Present address\",\r\n      \"addressLineTwo\": \"address line2\",\r\n      \"town\": \"new town\",\r\n      \"county\": \"new county\",\r\n      \"postCode\": \"12345\",\r\n      \"isPrimary\": true,\r\n      \"id\": 0\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7045/api/Customer",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7045",
+					"path": [
+						"api",
+						"Customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer.GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7045/api/Customer/GetAll",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7045",
+					"path": [
+						"api",
+						"Customer",
+						"GetAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer.GetAllActive",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7045/api/Customer/GetAllActive",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7045",
+					"path": [
+						"api",
+						"Customer",
+						"GetAllActive"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Address.GetAll",
 			"request": {
@@ -52,7 +140,7 @@
 		{
 			"name": "Address.Update",
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -130,48 +218,6 @@
 			"response": []
 		},
 		{
-			"name": "Customer.GetAll",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:7045/api/Customer/GetAll",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7045",
-					"path": [
-						"api",
-						"Customer",
-						"GetAll"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Customer.GetAllActive",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://localhost:7045/api/Customer/GetAllActive",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7045",
-					"path": [
-						"api",
-						"Customer",
-						"GetAllActive"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Customer.customers",
 			"request": {
 				"method": "GET",
@@ -221,35 +267,6 @@
 						"api",
 						"Customer",
 						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Customer.Create",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"New Customer\",\r\n  \"forename\": \"Customer Forename\",\r\n  \"surname\": \"Customer Surname\",\r\n  \"emailAddress\": \"newcustomer@gmailcom\",\r\n  \"mobileNumber\": \"999990909\",\r\n  \"isActive\": true,\r\n  \"addresses\": [\r\n    {\r\n      \"addressLineOne\": \"Present address\",\r\n      \"addressLineTwo\": \"address line2\",\r\n      \"town\": \"new town\",\r\n      \"county\": \"new county\",\r\n      \"postCode\": \"12345\",\r\n      \"country\": \"UK\",\r\n      \"isPrimary\": true,\r\n      \"id\": 0\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://localhost:7045/api/Customer",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "7045",
-					"path": [
-						"api",
-						"Customer"
 					]
 				}
 			},

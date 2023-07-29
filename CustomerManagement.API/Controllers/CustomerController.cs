@@ -71,7 +71,7 @@ namespace CustomerManagement.API.Controllers
         }
 
         // PUT: api/Customer/5
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         [SwaggerOperation(Summary = "Update customer status by Id")]
         [SwaggerResponse(200, "The customer status was successfully updated.", typeof(IEnumerable<GetCustomerDto>))]
         [SwaggerResponse(400, "The customer could not be updated.")]
@@ -88,8 +88,8 @@ namespace CustomerManagement.API.Controllers
 
         // POST: api/Customer
         [HttpPost]
-        [SwaggerOperation(Summary = "Update customer status by Id")]
-        [SwaggerResponse(201, "The customer status was successfully updated.", typeof(IEnumerable<GetCustomerDto>))]
+        [SwaggerOperation(Summary = "Create a new customer")]
+        [SwaggerResponse(201, "The customer was successfully created.", typeof(IEnumerable<GetCustomerDto>))]
         [SwaggerResponse(400, "The customer could not be created.")]
         public async Task<ActionResult<CustomerDto>> PostCustomer([FromBody]CreateCustomerDto createCustomerDto)
         {
