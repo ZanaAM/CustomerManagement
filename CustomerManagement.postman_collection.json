@@ -275,7 +275,7 @@
 		{
 			"name": "Customer.Update",
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
